@@ -2,7 +2,8 @@
 import cv2 as cv
 import numpy as np
 
-face_cascade = cv.CascadeClassifier('haarcascade_frontalface_default.xml')
+face_cascade = cv.CascadeClassifier(r'cvdata\haarcascade_frontalface_default.xml')
+eye_cascade = cv.CascadeClassifier(r'cvdata\haarcascade_eye.xml')
 
 cap = cv.VideoCapture(r'source\baby.mp4')
 
@@ -15,6 +16,11 @@ while (1):
     #方框
     #该函数返回四个值：矩形的 x和 y坐标，以及它的高和宽。我们用这些值和内置的 rectangle函数，画出矩阵
      cv.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
+     roi_gray = gray[y:y+h, x:x+w]
+     roi_color = frame[y:y+h, x:x+w]
+     eyes = eye_cascade.detectMultiScale(roi_gray)
+     for (ex,ey,ew,eh) in eyes:
+         cv.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
     #圆形
     #cv2.circle(image,((x+x+w)/2,(y+y+h)/2),w/2,(0,255,0),2)
     cv.imshow("Find Faces!",frame)
