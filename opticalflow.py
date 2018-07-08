@@ -1,5 +1,6 @@
 import cv2 as cv
 import numpy as np
+
 cap = cv.VideoCapture(0)
 ret, frame1 = cap.read()
 prvs = cv.cvtColor(frame1,cv.COLOR_BGR2GRAY)
