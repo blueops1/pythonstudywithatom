@@ -1,23 +1,20 @@
 # coding:utf-8
 import cv2
+import sys
 
 # 待检测的图片路径
-imagepath = ('test.jpg')
+
 #imagepath = r'./test.jpg'
 # 获取训练好的人脸的参数数据，这里直接从GitHub上使用默认值
 # 现在，我们创建一个 cascade，并用人脸 cascade 初始化。这把人脸 cascade 导入内存，所以它随时可以使用。记住，该 cascade 只是一个包含人脸检测数据的 XML 文件。
-face_cascade = cv2.CascadeClassifier(r'./haarcascade_frontalface_default.xml')
-
+face_cascade = cv2.CascadeClassifier(r'haarcascade_frontalface_default.xml')
+print(face_cascade.empty())
 # 读取图片
-image = cv2.imread(imagepath)
+image = cv2.imread('test.jpg')
 # 灰度转换的作用就是：转换成灰度的图片的计算强度得以降低
 gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
 # 探测图片中的人脸
-faces = face_cascade.detectMultiScale(
-    gray,
-    scaleFactor = 1.15,
-    minNeighbors = 3
-)
+faces = face_cascade.detectMultiScale(gray,1.1,3)
 # scaleFactor调成 1.2能去除错误检测,为每一个级联矩形应该保留的邻近个数，可以理解为一个人周边有几个人脸
 # 该函数做的就是检测人脸，是代码核心部分。所以，我们来过一遍选项。DetectMultiScale函数是一个检测物体的通用函数。我们在人脸 cascade上调用它，它检测的就是人脸。第一个选
 
