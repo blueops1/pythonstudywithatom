@@ -16,17 +16,15 @@ gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
 faces = face_cascade.detectMultiScale(
     gray,
     scaleFactor = 1.15,
-    minNeighbors = 5,
-    minSize = (30,30),
-    flags = cv2.cv.CV_HAAR_SCALE_IMAGE
+    minNeighbors = 3
 )
 # scaleFactor调成 1.2能去除错误检测,为每一个级联矩形应该保留的邻近个数，可以理解为一个人周边有几个人脸
 # 该函数做的就是检测人脸，是代码核心部分。所以，我们来过一遍选项。DetectMultiScale函数是一个检测物体的通用函数。我们在人脸 cascade上调用它，它检测的就是人脸。第一个选
 
-项是灰度图片。第二个是 scaleFactor。有的人脸离镜头近，会比其他人脸更大。ScaleFactor对此进行补偿。检测算法使用移动窗口来检测物体。在系统宣布检测到人脸之前，minNeighbors
+#项是灰度图片。第二个是 scaleFactor。有的人脸离镜头近，会比其他人脸更大。ScaleFactor对此进行补偿。检测算法使用移动窗口来检测物体。在系统宣布检测到人脸之前，minNeighbors
 
-会对当前其周围有多少物体进行定义。MinSize给出每个窗口的大小。我用的是这些领域的常用值。现实中，你会拿不同的值试验窗口尺寸、扩展因素等参数，直到找出最比较合适的那一个。
-当该函数认为它找到一张人脸时，会返回一个矩形列表。下一步，我们会进行循环，直到它认为检测出了什么。
+#会对当前其周围有多少物体进行定义。MinSize给出每个窗口的大小。我用的是这些领域的常用值。现实中，你会拿不同的值试验窗口尺寸、扩展因素等参数，直到找出最比较合适的那一个。
+#当该函数认为它找到一张人脸时，会返回一个矩形列表。下一步，我们会进行循环，直到它认为检测出了什么。
 
 print "found{0}faces!".format(len(faces))
 for(x,y,w,h) in faces:
