@@ -20,6 +20,7 @@ import base64
 import urllib
 import urllib2
 import requests
+import wave
 
 
 class BaiduRest:
@@ -43,9 +44,15 @@ class BaiduRest:
     #语音合成
     def text2audio(self, text, filename):
         get_url = self.getvoice_url % (urllib2.quote(text), self.cu_id, self.token_str)
+        print(get_url)
         voice_data = urllib2.urlopen(get_url).read()
         voice_fp = open(filename,'wb+')
-        voice_fp.write(voice_data)
+        #voice_fp = wave.open(filename,'wb')
+        #voice_fp.setnchannels(1)
+        #voice_fp.setsampwidth(2)
+        #voice_fp.setframerate(8000)
+        #voice_fp.writeframes(b''.join(voice_data))
+        #voice_fp.write(voice_data)
         voice_fp.close()
         return True
 

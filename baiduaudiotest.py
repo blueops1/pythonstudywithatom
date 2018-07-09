@@ -1,10 +1,11 @@
 #coding:utf-8
 from aip import AipSpeech
+import mp3
 
 """ 你的 APPID AK SK """
 APP_ID = '11161674'
-API_KEY = '5wK4aYucyGoLvaeCzIudGfTp'
-SECRET_KEY = 'c98cd25219136ce08969f10aecc63a20'
+API_KEY = 'HIqxZxcEZ1bM7IhyjryHq7nI'
+SECRET_KEY = '4tiKxM41oLd289ZVITViNiFc4cIZQYhx'
 
 client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)
 
@@ -17,3 +18,6 @@ if not isinstance(result, dict):
     with open('auido.mp3', 'wb') as f:
         f.write(result)
 print(dict)
+
+import os
+os.system('auido.mp3')
