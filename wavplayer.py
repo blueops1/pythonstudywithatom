@@ -20,8 +20,6 @@ print(isok)
 #define stream chunk
 chunk = 1024
 
-#wah.WaveOps.add_ulaw_header('test1.wav','test2.wav')
-
 #open a wav format music
 f = wave.open('test2.wav',"rb")
 #instantiate PyAudio
