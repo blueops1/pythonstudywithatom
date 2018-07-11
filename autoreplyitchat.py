@@ -16,6 +16,7 @@ def text_reply(msg):
         # 回复给好友
         return u'[程序测试][自动回复]您好，我现在有事不在，一会再和您联系.\n已经收到您的信息：%s\n' % (msg['Text'])
 
+# 封装好的装饰器，当接收到的消息是群聊Text，即文字消息
 @itchat.msg_register('Text',isGroupChat=True)
 def text_reply(msg):
     #print(msg)
