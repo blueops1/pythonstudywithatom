@@ -5,6 +5,17 @@ import time
 # 自动回复
 # 封装好的装饰器，当接收到的消息是Text，即文字消息
 
+@itchat.msg_register('Text')
+def text_reply(msg):
+    if not msg['FromUserName'] == myUserName:
+        # 发送一条提示给文件助手
+        itchat.send_msg(u"[%s]收到好友@%s 的信息：%s\n" %
+                        (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(msg['CreateTime'])),
+                         msg['User']['NickName'],
+                         msg['Text']), 'filehelper')
+        # 回复给好友
+        return u'[程序测试][自动回复]您好，我现在有事不在，一会再和您联系.\n已经收到您的信息：%s\n' % (msg['Text'])
+
 @itchat.msg_register('Text',isGroupChat=True)
 def text_reply(msg):
     #print(msg)
@@ -30,7 +41,8 @@ def text_reply(msg):
                 msg['Text']), 'filehelper')
                 # 回复给好友
                 return (u'[程序测试][自动回复]冒个泡，证明我来过\n')
-        elif not msg['NickName'] == myUserName:
+        """
+        elif not msg['FromUserName'] == myUserName:
             # 发送一条提示给文件助手
             itchat.send_msg(u"[%s]收到好友@%s 的信息：%s\n" %
                             (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(msg['CreateTime'])),
@@ -38,6 +50,7 @@ def text_reply(msg):
                              msg['Text']), 'filehelper')
             # 回复给好友
             return u'[程序测试][自动回复]您好，我现在有事不在，一会再和您联系.\n已经收到您的信息：%s\n' % (msg['Text'])
+        """
     else:
         if msg.isAt:
             # 发送一条提示给文件助手
@@ -63,6 +76,6 @@ if __name__ == '__main__':
         gcnlist.append(gcn["NickName"])
     #print(gcnlist)
     # 获取自己的UserName
-    myUserName = itchat.get_friends(update=True)[0]["NickName"]
+    myUserName = itchat.get_friends(update=True)[0]["UserName"]
     groupchatname1 = []
     itchat.run()
